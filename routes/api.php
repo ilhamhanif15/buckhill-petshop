@@ -20,5 +20,9 @@ Route::prefix('v1')->group(function() {
     Route::prefix('admin')->group(function() {
         Route::post('login', [AuthController::class, 'login']);
     });
+    
+    Route::prefix('user')->group(function() {
+        Route::post('login', [AuthController::class, 'login']);
+    });
 
 });
