@@ -22,7 +22,7 @@ class JwtAuth
      */
     public function generateToken($userUuid)
     {
-        $key = InMemory::file('storage/private.key');
+        $key = InMemory::plainText(env('JWT_PRIVATE'));
 
         $tokenBuilder   = (new TokenBuilder(new JoseEncoder(), ChainedFormatter::default()));
         $algorithm      = new Sha256();
@@ -48,7 +48,7 @@ class JwtAuth
         $parser = new Parser(new JoseEncoder());
         $this->parsedToken = $parser->parse($token);
         
-        $publicKey = InMemory::file('storage/public.key');
+        $publicKey = InMemory::plainText(env('JWT_PUBLIC'));
         
         $constraint = new SignedWith(new Sha256(), $publicKey);
 
