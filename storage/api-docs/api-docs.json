@@ -1,0 +1,75 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Example API",
+        "description": "This is an example API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/admin/login": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Login an Admin account",
+                "description": "Returns admin data",
+                "operationId": "02d2894f743c006b2a0ce550fa19a903",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "LoginRequest": {
+                "title": "Login user",
+                "description": "Login request body data",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "description": "Email of the user",
+                        "type": "string",
+                        "format": "email",
+                        "example": "user@mail.com"
+                    },
+                    "password": {
+                        "description": "Password for user's account",
+                        "type": "string",
+                        "example": "mypassword"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
