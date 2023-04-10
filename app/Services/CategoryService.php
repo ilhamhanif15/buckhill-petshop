@@ -36,4 +36,9 @@ class CategoryService
 
         return DB::transaction(fn() => $this->category->create($data));
     }
+
+    public function show(string $uuid)
+    {
+        return $this->category->where('uuid', $uuid)->first();
+    }
 }

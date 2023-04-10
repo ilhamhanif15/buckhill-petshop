@@ -50,8 +50,7 @@ class CategoryController extends Controller
      *      ),
      *      @OA\Response(
      *          response=200,
-     *          description="Successful operation",
-     *          @OA\JsonContent()
+     *          description="Successful operation"
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -90,7 +89,6 @@ class CategoryController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent()
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -114,11 +112,44 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\GET(
+     *      path="/api/v1/categories/{uuid}",
+     *      tags={"Category"},
+     *      summary="Show Category by uuid",
+     *      description="Returns categories",
+     *      @OA\Parameter(
+     *          description="uuid",
+     *          in="path",
+     *          required=true,
+     *          name="uuid",
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden",
+     *      )
+     * )
      */
-    public function show(string $id)
+    public function show(string $uuid)
     {
-        //
+        $result = $this->categoryService->show($uuid);
+
+        if (!$result) {
+            return $this->errorResponse("Category Not Found.", 404);
+        }
+
+        return $this->responseSuccess($result);
     }
 
     /**
