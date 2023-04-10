@@ -202,10 +202,40 @@ class CategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *      path="/api/v1/categories/{uuid}",
+     *      tags={"Category"},
+     *      summary="Delete Category by uuid",
+     *      description="Delete a Category",
+     *      @OA\Parameter(
+     *          description="uuid",
+     *          in="path",
+     *          required=true,
+     *          name="uuid",
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden",
+     *      )
+     * )
      */
-    public function destroy(string $id)
+    public function destroy(string $uuid)
     {
-        //
+        $result = $this->categoryService->destroy($uuid);
+
+        return $this->responseSuccess($result);
     }
 }

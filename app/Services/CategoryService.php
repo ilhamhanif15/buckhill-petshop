@@ -52,4 +52,19 @@ class CategoryService
 
         return DB::transaction(fn() => tap($categoryFound)->update($data)->refresh());
     }
+
+    public function destroy(string $uuid)
+    {
+        $categoryFound = $this->show($uuid);
+
+        if (!$categoryFound) {
+            abort(404, "Category Not Found.");
+        }
+
+        $deletedData = $categoryFound;
+
+        DB::transaction(fn() => $categoryFound->delete());
+
+        return $deletedData;        
+    }
 }
