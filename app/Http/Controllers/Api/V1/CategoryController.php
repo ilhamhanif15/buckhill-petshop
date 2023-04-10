@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\StoreRequest;
 use App\Services\CategoryService;
 use App\Traits\ResponseBuilder;
 use Illuminate\Http\Request;
@@ -74,11 +75,42 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *      path="/api/v1/categories",
+     *      tags={"Category"},
+     *      summary="Create new Category Item",
+     *      description="Create new Category Item",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/x-www-form-urlencoded",
+     *              @OA\Schema(ref="#/components/schemas/CategoryStoreRequest")
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden",
+     *      )
+     * )
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $result = $this->categoryService->store($request->validated());
+
+        return $this->responseSuccess($result);
     }
 
     /**
