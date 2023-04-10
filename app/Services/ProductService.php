@@ -27,6 +27,13 @@ class ProductService
             'category:uuid,title,slug'
         ]), $request);
 
+        $paginationable->setSearchableColumns([
+            'category.title',
+            'title',
+            'price',
+            'description',
+        ]);
+
         return $paginationable->paginate();
     }
 

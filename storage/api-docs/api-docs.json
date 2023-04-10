@@ -268,6 +268,11 @@
                         "description": "Page"
                     },
                     {
+                        "name": "q",
+                        "in": "query",
+                        "description": "Search for title, price, description, category title"
+                    },
+                    {
                         "name": "per_page",
                         "in": "query",
                         "description": "Per page"

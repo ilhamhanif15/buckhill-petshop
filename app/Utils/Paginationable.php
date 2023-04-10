@@ -5,6 +5,8 @@ namespace App\Utils;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class Paginationable
 {
@@ -181,7 +183,6 @@ class Paginationable
         $this->model = $this->model->where( function($query) use($search_text) {
             foreach ($this->searchable_cols as $col) {
                 $query = $this->_searchQueryBySearchableCol($col, $search_text, $query);
-                // $query = $query->orWhere($col, 'ILIKE', '%'.$search_text.'%');
             }
         });
 
@@ -201,11 +202,9 @@ class Paginationable
         $exploded_relations = explode(".", $searchable_col);
 
         if (count($exploded_relations) === 1) 
-        {
-            // $query = $query->orWhere($searchable_col, 'ILIKE', '%'.$search_text.'%');
-            
+        {   
             $search_text = Str::lower($search_text);
-            $query = $query->orWhere( DB::raw("lower({$searchable_col})"), 'LIKE', '%'.$search_text.'%');
+            $query = $query->orWhere($searchable_col, 'ILIKE', '%'.$search_text.'%');
         }
         else if (count($exploded_relations) > 1)
         {

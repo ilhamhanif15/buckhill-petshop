@@ -32,6 +32,11 @@ class ProductController extends Controller
      *          name="page",
      *      ),
      *      @OA\Parameter(
+     *          description="Search for title, price, description, category title",
+     *          in="query",
+     *          name="q",
+     *      ),
+     *      @OA\Parameter(
      *          description="Per page",
      *          in="query",
      *          name="per_page",
