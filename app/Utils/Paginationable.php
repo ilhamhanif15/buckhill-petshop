@@ -4,6 +4,7 @@ namespace App\Utils;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 class Paginationable
 {
