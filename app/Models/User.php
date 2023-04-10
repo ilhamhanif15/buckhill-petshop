@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,9 +15,12 @@ use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use Uuids, HasApiTokens, HasFactory, Notifiable;
 
-    const UUID_COLUMN = 'uuid';
+    public function getUuidColName()
+    {
+        return 'uuid';
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -55,17 +59,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (!isset($model->{self::UUID_COLUMN})) {
-                $model->{self::UUID_COLUMN} = Str::orderedUuid()->toString();
-            }
-        });
-    }
 
     /**
      * Scope a query to by email and password.

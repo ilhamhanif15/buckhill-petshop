@@ -2,14 +2,18 @@
 
 namespace App\Models;
 
+use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    use HasFactory;
+    use Uuids, HasFactory;
 
-    const UUID_COLUMN = 'uuid';
+    public function getUuidColName()
+    {
+        return 'uuid';
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -21,15 +25,4 @@ class Category extends Model
         'title',
         'slug',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (!isset($model->{self::UUID_COLUMN})) {
-                $model->{self::UUID_COLUMN} = Str::orderedUuid()->toString();
-            }
-        });
-    }
 }
