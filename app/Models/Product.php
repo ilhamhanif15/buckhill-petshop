@@ -40,6 +40,15 @@ class Product extends Model
     ];
 
     /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'id',
+    ];
+
+    /**
      * Get the category associated with the Product
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
