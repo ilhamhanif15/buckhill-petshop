@@ -25,4 +25,8 @@ class Category extends Model
         'title',
         'slug',
     ];
+
+    protected $hidden = [
+        'id'
+    ];
 }

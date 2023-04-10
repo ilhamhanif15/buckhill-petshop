@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Services\CategoryService;
+use App\Traits\ResponseBuilder;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    use ResponseBuilder;
+
     public function __construct(
         private CategoryService $categoryService
     )
