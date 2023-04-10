@@ -3,21 +3,37 @@
 namespace App\Http\Requests\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
 
 /**
  * @OA\Schema(
- *      schema="CategoryStoreRequest",
- *      title="Category Store Request",
- *      description="Category Store Request body data",
+ *      schema="ProductStoreRequest",
+ *      title="Product Store Request",
+ *      description="Product Store Request body data",
  *      type="object",
- *      required={"title"},
+ *      required={"title", "category_uuid", "price", "description"},
  *      @OA\Property(
  *          property="title",
- *          description="Name/title of Category for a product",
+ *          description="Name/title of Product",
  *          type="string",
  *          example="dry dog food"
- *      )
+ *      ),
+ *      @OA\Property(
+ *          property="category_uuid",
+ *          description="Category for this product",
+ *          type="string"
+ *      ),
+ *      @OA\Property(
+ *          property="price",
+ *          description="Price of Product",
+ *          type="float",
+ *          example="100"
+ *      ),
+ *      @OA\Property(
+ *          property="description",
+ *          description="Description of Product",
+ *          type="string",
+ *          example="This food is absolutely for your dogs"
+ *      ),
  * )
  */
 class StoreRequest extends FormRequest
@@ -31,16 +47,6 @@ class StoreRequest extends FormRequest
     }
 
     /**
-     * Prepare the data for validation.
-     */
-    protected function prepareForValidation(): void
-    {
-        $this->merge([
-            'slug' => Str::slug($this->title),
-        ]);
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
@@ -48,8 +54,10 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:100'],
-            'slug' => ['required', 'string']
+            'category_uuid' => ['required', 'exists:categories,uuid'],
+            'title' => ['required', 'string'],
+            'price' => ['required', 'numeric'],
+            'description' => ['required', 'string'],
         ];
     }
 }

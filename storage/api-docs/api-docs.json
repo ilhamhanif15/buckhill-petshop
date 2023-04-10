@@ -305,6 +305,160 @@
                         "description": "Forbidden"
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Create new Product Item",
+                "description": "Create new Product Item",
+                "operationId": "acaa0d3fdc74fd4b534e70fc016cf7f1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductStoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/v1/products/{uuid}": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Show Product by uuid",
+                "description": "Returns product",
+                "operationId": "a6661e787c8855e2e958979cde18b125",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "uuid",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Update product Item",
+                "description": "Update product Item",
+                "operationId": "1feb43f2cf58693ece0a63b45635ceb7",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "uuid",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductStoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Delete Product by uuid",
+                "description": "Delete a Product",
+                "operationId": "fe3fbe51a4ab866c26b88d94463c76ac",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "uuid",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
             }
         },
         "/api/v1/user/login": {
@@ -382,6 +536,39 @@
                         "description": "Name/title of Category for a product",
                         "type": "string",
                         "example": "dry dog food"
+                    }
+                },
+                "type": "object"
+            },
+            "ProductStoreRequest": {
+                "title": "Product Store Request",
+                "description": "Product Store Request body data",
+                "required": [
+                    "title",
+                    "category_uuid",
+                    "price",
+                    "description"
+                ],
+                "properties": {
+                    "title": {
+                        "description": "Name/title of Product",
+                        "type": "string",
+                        "example": "dry dog food"
+                    },
+                    "category_uuid": {
+                        "description": "Category for this product",
+                        "type": "string"
+                    },
+                    "price": {
+                        "description": "Price of Product",
+                        "type": "number",
+                        "format": "float",
+                        "example": "100"
+                    },
+                    "description": {
+                        "description": "Description of Product",
+                        "type": "string",
+                        "example": "This food is absolutely for your dogs"
                     }
                 },
                 "type": "object"

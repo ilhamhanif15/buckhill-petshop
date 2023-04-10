@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Utils\Paginationable;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\DB;
 
 class ProductService
 {
@@ -33,6 +34,12 @@ class ProductService
      */
     public function store(array $data)
     {
+        // Default MetaData
+        $data['metadata'] = [
+            "brand" => null,
+            "image" => null
+        ];
+
         return DB::transaction(fn() => $this->product->create($data));
     }
 
