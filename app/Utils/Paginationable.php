@@ -55,14 +55,14 @@ class Paginationable
      *
      * @var string
      */
-    protected $pagination_order_col = null;
+    protected $pagination_order_col = 'created_at';
 
     /**
      * Pagination Order By (default is desc)
      *
      * @var string
      */
-    protected $pagination_order_by = null;
+    protected $pagination_order_by = true;
 
     /**
      * COnstructor
@@ -77,8 +77,8 @@ class Paginationable
 
         // Init By Request
         $this->per_page             = $this->request->input("per_page", $this->per_page);
-        $this->pagination_order_col = $this->request->input("order_col", $this->pagination_order_col);
-        $this->pagination_order_by  = $this->request->input("order_by", $this->pagination_order_by);
+        $this->pagination_order_col = $this->request->input("sortBy", $this->pagination_order_col);
+        $this->pagination_order_by  = filter_var( $this->request->input("desc", $this->pagination_order_by), FILTER_VALIDATE_BOOLEAN );
     }
 
     /**
@@ -256,7 +256,7 @@ class Paginationable
     public function setOrderBy()
     {
         if ($this->pagination_order_by && $this->pagination_order_col) {
-            $this->model = $this->model->orderBy($this->pagination_order_col, $this->pagination_order_by);
+            $this->model = $this->model->orderBy($this->pagination_order_col, $this->pagination_order_by ? 'desc' : 'asc');
         }
 
         return $this;
