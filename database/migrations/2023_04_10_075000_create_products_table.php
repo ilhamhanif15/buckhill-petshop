@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
+            $table->uuid('uuid')->unique();
             $table->uuid('category_uuid');
             $table->foreign('category_uuid')->references('uuid')->on('categories');
             $table->string('title');
