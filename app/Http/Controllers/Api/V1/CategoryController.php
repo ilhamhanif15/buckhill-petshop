@@ -3,16 +3,13 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Services\ProductService;
-use App\Traits\ResponseBuilder;
+use App\Services\CategoryService;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class CategoryController extends Controller
 {
-    use ResponseBuilder;
-
     public function __construct(
-        private ProductService $productService
+        private CategoryService $categoryService
     )
     {
         //
@@ -20,10 +17,10 @@ class ProductController extends Controller
 
     /**
      * @OA\GET(
-     *      path="/api/v1/products",
+     *      path="/api/v1/categories",
      *      tags={"Product"},
-     *      summary="List products",
-     *      description="Returns Products",
+     *      summary="List categories",
+     *      description="Returns categories",
      *      @OA\Parameter(
      *          description="Page",
      *          in="query",
@@ -68,7 +65,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $data = $this->productService->getPaginate($request);
+        $data = $this->categoryService->getPaginate($request);
 
         return $this->responseSuccess($data);
     }
@@ -84,7 +81,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $uuid)
+    public function show(string $id)
     {
         //
     }
@@ -92,7 +89,7 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $uuid)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -100,7 +97,7 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $uuid)
+    public function destroy(string $id)
     {
         //
     }

@@ -46,13 +46,13 @@
             }
         },
         "/api/v1/products": {
-            "post": {
+            "get": {
                 "tags": [
                     "Product"
                 ],
                 "summary": "List products",
                 "description": "Returns Products",
-                "operationId": "58c221842148a964648011f72bbf469a",
+                "operationId": "1ce27f90dd8c39cea9520bf45d58c7c2",
                 "parameters": [
                     {
                         "name": "page",
