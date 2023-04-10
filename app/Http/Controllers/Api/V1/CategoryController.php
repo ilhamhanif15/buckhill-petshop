@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\StoreRequest;
+use App\Http\Requests\Product\UpdateRequest;
 use App\Services\CategoryService;
 use App\Traits\ResponseBuilder;
 use Illuminate\Http\Request;
@@ -50,7 +51,8 @@ class CategoryController extends Controller
      *      ),
      *      @OA\Response(
      *          response=200,
-     *          description="Successful operation"
+     *          description="Successful operation",
+     *          @OA\JsonContent()
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -89,6 +91,7 @@ class CategoryController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
+     *          @OA\JsonContent()
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -153,11 +156,49 @@ class CategoryController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\PUT(
+     *      path="/api/v1/categories/{uuid}",
+     *      tags={"Category"},
+     *      summary="Update Category Item",
+     *      description="Update Category Item",
+     *      @OA\Parameter(
+     *          description="uuid",
+     *          in="path",
+     *          required=true,
+     *          name="uuid",
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/x-www-form-urlencoded",
+     *              @OA\Schema(ref="#/components/schemas/CategoryStoreRequest")
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request",
+     *          @OA\JsonContent()
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden",
+     *      )
+     * )
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, string $uuid)
     {
-        //
+        $result = $this->categoryService->update($request->validated(), $uuid);
+
+        return $this->responseSuccess($result);
     }
 
     /**

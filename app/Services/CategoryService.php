@@ -41,4 +41,15 @@ class CategoryService
     {
         return $this->category->where('uuid', $uuid)->first();
     }
+
+    public function update(array $data, string $uuid)
+    {
+        $categoryFound = $this->show($uuid);
+
+        if (!$categoryFound) {
+            abort(404, "Category Not Found.");
+        }
+
+        return DB::transaction(fn() => tap($categoryFound)->update($data)->refresh());
+    }
 }
