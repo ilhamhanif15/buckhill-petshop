@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Product;
+use App\Utils\Paginationable;
 use Illuminate\Http\Request;
 
 class ProductService
@@ -12,5 +13,12 @@ class ProductService
     )
     {
         //
+    }
+
+    public function getPaginate(Request $request)
+    {
+        $paginationable = new Paginationable($this->product, $request);
+
+        return $paginationable->paginate();
     }
 }

@@ -45,6 +45,60 @@
                 }
             }
         },
+        "/api/v1/products": {
+            "post": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "List products",
+                "description": "Returns Products",
+                "operationId": "58c221842148a964648011f72bbf469a",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page"
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Per page"
+                    },
+                    {
+                        "name": "sortBy",
+                        "in": "query",
+                        "description": "Sort By"
+                    },
+                    {
+                        "name": "desc",
+                        "in": "query",
+                        "description": "Desc",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
         "/api/v1/user/login": {
             "post": {
                 "tags": [

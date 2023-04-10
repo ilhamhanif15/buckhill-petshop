@@ -3,6 +3,7 @@
 namespace App\Utils;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Paginationable
 {
