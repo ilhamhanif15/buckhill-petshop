@@ -23,7 +23,9 @@ class ProductService
      */
     public function getPaginate(Request $request)
     {
-        $paginationable = new Paginationable($this->product, $request);
+        $paginationable = new Paginationable($this->product->with([
+            'category:uuid,title,slug'
+        ]), $request);
 
         return $paginationable->paginate();
     }

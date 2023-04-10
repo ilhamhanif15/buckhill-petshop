@@ -55,6 +55,6 @@ class Product extends Model
      */
     public function category(): HasOne
     {
-        return $this->hasOne(Category::class, 'category_uuid', 'uuid');
+        return $this->hasOne(Category::class, 'uuid', 'category_uuid');
     }
 }
