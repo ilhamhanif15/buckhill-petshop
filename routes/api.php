@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\Admin\AuthController;
+use App\Http\Controllers\Api\V1\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,5 +25,8 @@ Route::prefix('v1')->group(function() {
     Route::prefix('user')->group(function() {
         Route::post('login', [AuthController::class, 'login']);
     });
+
+    Route::apiResource('products', ProductController::class);
+    Route::apiResource('categories', ProductController::class);
 
 });
