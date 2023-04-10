@@ -18,7 +18,7 @@ class CategoryController extends Controller
     /**
      * @OA\GET(
      *      path="/api/v1/categories",
-     *      tags={"Product"},
+     *      tags={"Category"},
      *      summary="List categories",
      *      description="Returns categories",
      *      @OA\Parameter(
