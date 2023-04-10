@@ -51,7 +51,7 @@ class ProductService
      */
     public function show(string $uuid)
     {
-        return $this->product->where('uuid', $uuid)->first();
+        return $this->product->with(['category:uuid,title,slug'])->where('uuid', $uuid)->first();
     }
 
     /**
