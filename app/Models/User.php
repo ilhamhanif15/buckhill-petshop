@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -64,5 +65,24 @@ class User extends Authenticatable
                 $model->{self::UUID_COLUMN} = Str::orderedUuid()->toString();
             }
         });
+    }
+
+    /**
+     * Scope a query to by email and password.
+     */
+    public function scopeByEmailPassword(Builder $query, $email, $password): void
+    {
+        $query->where([
+            'email' => $email,
+            'password' => $password
+        ]);
+    }
+
+    /**
+     * Scope a query by is admin or not
+     */
+    public function scopeIsAdmin(Builder $query, $isAdmin = true): void
+    {
+        $query->where('is_admin', $isAdmin);
     }
 }

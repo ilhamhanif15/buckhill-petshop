@@ -22,11 +22,7 @@ class AuthUserService
 
     public function login($email, $password)
     {
-        $admin = User::where([
-            ['email', $email],
-            ['is_admin', false]
-        ])
-        ->first();
+        $admin = User::byEmailPassword($email, $password)->isAdmin(false)->first();
 
         if (!$admin) 
         {
