@@ -22,23 +22,23 @@ class AuthUserService
 
     public function login($email, $password)
     {
-        $admin = User::byEmailPassword($email, $password)->isAdmin(false)->first();
+        $user = User::byEmailPassword($email, $password)->isAdmin(false)->first();
 
-        if (!$admin) 
+        if (!$user) 
         {
             throw ValidationException::withMessages([
                 'email' => 'User Email not found.'
             ]);
         }
 
-        if (!Hash::check($password, $admin->password))
+        if (!Hash::check($password, $user->password))
         {
             throw ValidationException::withMessages([
                 'password' => 'Password doesnt match.'
             ]);
         }
 
-        $token = $this->jwtAuth->generateToken($admin->uuid);
+        $token = $this->jwtAuth->generateToken($user->uuid);
 
         return $this->responseSuccess([
             "token" => $token
