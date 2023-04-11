@@ -4,6 +4,7 @@ namespace App\Utils;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -86,7 +87,7 @@ class Paginationable
     /**
      * Create Paginate by Current Model
      *
-     * @return Paginator
+     * @return LengthAwarePaginator
      */
     public function paginate()
     {
