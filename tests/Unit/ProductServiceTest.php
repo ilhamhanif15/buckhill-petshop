@@ -5,6 +5,9 @@ namespace Tests\Unit;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\ProductService;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Arr;
 use Tests\TestCase;
 use Illuminate\Support\Str;
@@ -80,7 +83,7 @@ class ProductServiceTest extends TestCase
         $category->forceDelete();
     }
 
-    public function test_show_a_product()
+    public function test_show_a_product(): void
     {
         /** @var ProductService $productService */
         [$product, $category, $data, $productService] = $this->_create_product();
@@ -88,6 +91,19 @@ class ProductServiceTest extends TestCase
         $showProduct = $productService->show($product->uuid);
 
         $this->assertNotEmpty($showProduct);
+
+        $product->forceDelete();
+        $category->forceDelete();
+    }
+
+    public function test_it_should_be_a_paginator(): void
+    {
+        /** @var ProductService $productService */
+        [$product, $category, $data, $productService] = $this->_create_product();
+
+        $paginator = $productService->getPaginate(new Request());
+
+        $this->assertInstanceOf(LengthAwarePaginator::class, $paginator);
 
         $product->forceDelete();
         $category->forceDelete();
